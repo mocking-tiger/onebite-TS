@@ -23,3 +23,37 @@ let d: StringNumberSwitch<boolean | number | string>;
 
 // 결과
 // number | string
+
+// 실용적인 예제
+
+type Exclude<T, U> = T extends U ? never : T;
+type A = Exclude<number | string | boolean, string>;
+// 1단계
+// Exclude<number, string>
+// Exclude<string, string>
+// Exclude<boolean, string>
+
+// 2단계
+// number |
+// never |
+// boolean
+
+// 결과
+// number | boolean
+// 결과에 never가 포함되면 never는 사라짐
+
+type Extract<T, U> = T extends U ? T : never;
+
+type B = Extract<number | string | boolean, string>;
+
+// 1단계
+// Extract<number, string> |
+// Extract<string, string> |
+// Extract<boolean, string>
+
+/* 2단계
+never |
+string |
+never
+
+즉, B의 타입은 string */
